@@ -1,6 +1,6 @@
 import pygame
 from const import *
-from gui_menu import write
+from text import write
 import creature
 import timer
 
@@ -81,7 +81,6 @@ class Base():
 
     def check_departures(self):
         if self.currently_releasing:
-
             if self.timer.check_alarm("creature_release_time"):
                 self.time_to_release = True
                 if self.inhabitants > 1: # if the base has more than 1 inhabitant
