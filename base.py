@@ -4,12 +4,14 @@ from gui_menu import write
 import creature
 import timer
 
+
 class Base():
     def __init__(self, stage, x, y, team, inhabitants):
+        # todo make rubber band mechanic if over max inhabitants
         self.stage = stage
         self.x = x
         self.y = y
-        self.w = 20
+        self.w = 40
         self.h = 40
         self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
 
@@ -41,9 +43,6 @@ class Base():
         self.time_to_release = False  # if the interval has passed
         self.currently_releasing = False  # if currently releasing creatures
         self.released_creatures = []  # all released creatures
-
-        # self.old_time = pygame.time.get_ticks()
-        # self.time_lapsed = 0
 
     def set_selected(self):
         self.selected =not self.selected
@@ -82,7 +81,6 @@ class Base():
 
     def check_departures(self):
         if self.currently_releasing:
-            print(self.currently_releasing)
 
             if self.timer.check_alarm("creature_release_time"):
                 self.time_to_release = True
@@ -129,13 +127,13 @@ class Base():
             pygame.draw.rect(screen, WHITE, self.rect, 3)
         write(screen, self.inhabitants, (self.rect.center), centered=True)
 
-        # write(screen, "in transfer amount {}".format(self.in_transfer_amount), (self.rect.topright),
-        #       font_cat = 'std_small')
-        # write(screen, "to transfer amount {}".format( self.to_transfer_amount), (self.rect.topright[0],
-        #         self.rect.topright[1] + 10), font_cat='std_small')
-        # write(screen, "team {}".format(self.team), (self.rect.topright[0],
-        #                                                                         self.rect.topright[1] + 20),
-        #       font_cat='std_small')
+        write(screen, "team: {}".format(self.team),
+              (self.rect.right + 5, self.rect.top), font_cat = 'std_small' )
+        write(screen, "to transfer: {}".format(self.to_transfer_amount),
+              (self.rect.right + 5, self.rect.top + 10 ), font_cat='std_small')
+        write(screen, "in transfer: {}".format(self.in_transfer_amount),
+              (self.rect.right + 5, self.rect.top + 20), font_cat='std_small')
+
 
         for creature in self.released_creatures:
             creature.draw(screen)

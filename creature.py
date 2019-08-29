@@ -38,8 +38,5 @@ class Creature():
         if self.rect.colliderect(self.target.rect):
             self.kill()
 
-
-
-
     def draw(self, screen):
         pygame.draw.rect(screen, self.bg_color, self.rect, 0)

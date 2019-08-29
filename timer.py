@@ -22,7 +22,6 @@ class Timer():
                 return False
 
     def update(self):
-        # print('test')
         for alarm in self.alarms:
             alarm.flagged = False
             new_time = pygame.time.get_ticks()
@@ -31,7 +30,6 @@ class Timer():
                 alarm.flagged = True
                 alarm.reset()
 
-        # self.check_alarms()
 
 class Alarm():
     def __init__(self, name, goal_time):
@@ -45,14 +43,3 @@ class Alarm():
         self.start_time = pygame.time.get_ticks()
         self.current_time = 0
 
-
-# def timer(self):
-#         self.time_to_release = False
-#         new_time = pygame.time.get_ticks()
-#         delta_time = (new_time - self.old_time) /1000
-#
-#         if delta_time >= self.creature_release_time:
-#             if self.currently_releasing:
-#                 self.time_to_release = True
-#                 self.time_lapsed = 0
-#             self.old_time = pygame.time.get_ticks()

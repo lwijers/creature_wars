@@ -50,7 +50,6 @@ class Radio_button():
         self.parent = parent
         self.pos = pos
         self.rad = rad
-        #TODO make the position relevant to parent surface not screen
         self.rect = pygame.Rect(0,0, self.rad *2, self.rad * 2)
         self.rect.left = self.parent.rect.left + self.pos[0]
         self.rect.top = self.parent.rect.top + self.pos[1]

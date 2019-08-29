@@ -8,6 +8,7 @@ import stage
 
 # os.environ['SDL_VIDEO_CENTERED'] = '0'
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (1400,10)
+
 def run_game(width, height, fps):
 
     pygame.init()
