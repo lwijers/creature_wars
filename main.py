@@ -2,16 +2,17 @@ import os
 
 import pygame
 import event_handler
+from const import *
 
 import stage
 
-os.environ['SDL_VIDEO_CENTERED'] = '0'
-
+# os.environ['SDL_VIDEO_CENTERED'] = '0'
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (1400,10)
 def run_game(width, height, fps):
 
     pygame.init()
 
-    screen = pygame.display.set_mode( (100, 100))
+    screen = pygame.display.set_mode((width, height))
 
     clock = pygame.time.Clock()
 
@@ -32,8 +33,8 @@ def run_game(width, height, fps):
 
         pygame.display.flip()
 
-        clock.tick( fps )
+        clock.tick( 60 )
 
 
 if __name__ == '__main__':
-    run_game(100, 100, 60)
+    run_game(SW, SH, FPS)

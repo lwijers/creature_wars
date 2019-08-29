@@ -1,3 +1,5 @@
+import math
+
 class Vec2d(object):
     """2d vector class, supports vector and scalar operators,
        and also provides a bunch of high level functions
