@@ -14,8 +14,6 @@ def create_lvl(stage, lvl):
         for row in csvReader:
             print(lvl, type(lvl), row[0], type(row[0]))
             if row[0] == lvl:
-
-
                 constructed_level.append(
                     base.Base(
                         stage,
