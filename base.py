@@ -7,7 +7,6 @@ import timer
 
 class Base():
     def __init__(self, stage, x, y, team, inhabitants):
-        # todo make rubber band mechanic if over max inhabitants
         self.stage = stage
         self.x = x
         self.y = y
@@ -33,6 +32,8 @@ class Base():
         self.inhabitants = inhabitants
         self.max_inhabitants = 100
         self.inhabitants_growth_speed = 1
+        self.inhabitants_decay = 0.98
+
         self.timer.set_alarm('inhabitants_grow', self.inhabitants_growth_speed)
 
         self.transfer_amount = 10 # creatures released per click
@@ -43,6 +44,11 @@ class Base():
         self.time_to_release = False  # if the interval has passed
         self.currently_releasing = False  # if currently releasing creatures
         self.released_creatures = []  # all released creatures
+
+        self.box_selectable = False # if it gets picked up by the selection box
+        if self.team == 'player':
+            self.box_selectable = True
+
 
     def set_selected(self):
         self.selected =not self.selected
@@ -67,6 +73,7 @@ class Base():
         self.in_transfer_amount -= 1
 
     def transfer_creatures(self, base):
+        # todo make the neutrals not send creatures if you select them
         if self.inhabitants > 1:
             self.currently_releasing = True
             self.target_base = base
@@ -74,10 +81,17 @@ class Base():
             self.timer.set_alarm("creature_release_time", self.creature_release_time)
 
     def regulate_growth(self):
-        if self.inhabitants < self.max_inhabitants:
-            if self.team != 'neutral':
-                if self.timer.check_alarm('inhabitants_grow'):
+        if self.timer.check_alarm('inhabitants_grow'):
+            if self.inhabitants < self.max_inhabitants:
+                if self.team != 'neutral':
                     self.inhabitants += 1
+
+            else:
+                buffer = int(self.inhabitants * self.inhabitants_decay)
+                if buffer < 100:
+                    buffer = 100
+                self.inhabitants = buffer
+
 
     def check_departures(self):
         if self.currently_releasing:
@@ -110,8 +124,10 @@ class Base():
     # PUD ---------------------------------------------------------------------------
 
     def process_input(self, events):
-        if self.rect.collidepoint(pygame.mouse.get_pos()):
-            self.stage.select_building(self)
+
+        if events.mouse.l_clicked:
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                self.stage.select_building(self)
 
     def update(self):
         for item in self.released_creatures:

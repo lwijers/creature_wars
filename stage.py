@@ -3,21 +3,27 @@ import ai
 import levels
 import powerbar
 import pygame
-
+import selection_box
 
 class Stage():
     def __init__(self):
         # todo make selection tool
         self.ai = ai.Ai(self)
+
         self.lvl_mngr = levels.Level_mngr(self)
+
+
+
         self.current_level = '1'
         self.bases = self.lvl_mngr.give_lvl(self.current_level)
         self.powerbar = powerbar.Powerbar(100, 100, self.bases)
         self.selected_base = None
 
-        self.clickables = self.bases
-        self.drawables = [self.powerbar] + self.clickables
+        self.selection_box = selection_box.Selection_box()
+        self.clickables = self.bases + [self.selection_box]
+        self.selection_box.load_selectables(self.clickables)
 
+        self.drawables = [self.powerbar] + self.clickables
         self.pause = False
 
     def select_building(self, base):
@@ -36,22 +42,25 @@ class Stage():
 
         # code ran if game is not paused. enter all keys in here
         if not self.pause:
-            if events.mouse.l_clicked:
-                for clickable in self.clickables:
-                    clickable.process_input(events)
+            for clickable in self.clickables:
+                clickable.process_input(events)
 
     def update(self):
-        print(pygame.mouse.get_pos())
+
+
         # code ran if game is not paused. enter all game code in here
         if not self.pause:
+            self.ai.update()
+            self.clickables = self.bases + [self.selection_box]
+            # todo: refactor code so that drawables doesn't have to be declared twice
+            self.drawables = [self.powerbar] + self.clickables
+
+
             for item in self.drawables:
                 item.update()
 
-            self.clickables = self.bases
-            self.drawables = [self.powerbar] + self.clickables
-            self.ai.update()
-
     def draw(self, screen):
+        # print(pygame.mouse.get_pos())
         screen.fill(NICE_BLUE)
         for drawable in self.drawables:
             drawable.draw(screen)

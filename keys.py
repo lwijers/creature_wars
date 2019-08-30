@@ -27,6 +27,5 @@ class Keyboard():
     def key_down(self, key_to_check):
         if self.k_down and self.k_down.key is key_to_check:
             return True
-
         else:
              return False
