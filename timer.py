@@ -18,12 +18,13 @@ class Timer():
         for alarm in self.alarms:
             if alarm.flagged:
                 if alarm_name == alarm.name:
+                    alarm.flagged = False
                     return True
                 return False
 
     def update(self):
         for alarm in self.alarms:
-            alarm.flagged = False
+
             new_time = pygame.time.get_ticks()
             alarm.current_time = (new_time - alarm.start_time) / 1000
             if alarm.current_time >= alarm.goal_time:

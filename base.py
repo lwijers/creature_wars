@@ -5,7 +5,8 @@ import creature
 import timer
 
 
-class Base():
+class Base:
+
     def __init__(self, stage, x, y, team, inhabitants):
         self.stage = stage
         self.x = x
@@ -92,7 +93,6 @@ class Base():
                     buffer = 100
                 self.inhabitants = buffer
 
-
     def check_departures(self):
         if self.currently_releasing:
             if self.timer.check_alarm("creature_release_time"):
@@ -110,7 +110,6 @@ class Base():
         if self.to_transfer_amount <= 0:
             self.timer.remove_alarm("creature_release_time")
             self.currently_releasing = False
-
 
     def check_capture(self, enemy_team):
         if self.inhabitants < 0:
