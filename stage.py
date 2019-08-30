@@ -9,7 +9,7 @@ class Stage():
     def __init__(self):
         self.ai = ai.Ai(self)
         self.current_level = '2'
-        self.bases = levels.create_lvl(self.current_level)
+        self.bases = levels.create_lvl(self, self.current_level)
         self.powerbar = powerbar.Powerbar(100, 100, self.bases)
         self.selected_base = None
 
@@ -34,7 +34,7 @@ class Stage():
         if events.keyboard.key_down(pygame.K_SPACE):
             self.pause =not self.pause
 
-        # code ran if game is not paused. enter all keys in here
+        # code ran if game is not pausedr. enter all keys in here
         if not self.pause:
             for clickable in self.clickables:
                 clickable.process_input(events)
