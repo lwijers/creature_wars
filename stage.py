@@ -7,15 +7,9 @@ import selection_box
 
 class Stage():
     def __init__(self):
-        # todo make selection tool
         self.ai = ai.Ai(self)
-
-        self.lvl_mngr = levels.Level_mngr(self)
-
-
-
-        self.current_level = '1'
-        self.bases = self.lvl_mngr.give_lvl(self.current_level)
+        self.current_level = '2'
+        self.bases = levels.create_lvl(self.current_level)
         self.powerbar = powerbar.Powerbar(100, 100, self.bases)
         self.selected_base = None
 

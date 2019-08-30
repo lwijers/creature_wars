@@ -1,0 +1,8 @@
+lvl,team,x ,y ,amount of inhabitants
+1,enemy,100,100,20
+1,neutral,200,200,20
+1,player,300,300,20
+2,enemy,100,100,20
+2,neutral,200,200,20
+2,player,300,300,20
+2,player,400,400,20
