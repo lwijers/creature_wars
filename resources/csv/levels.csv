@@ -1,8 +1,12 @@
 lvl,team,x ,y ,amount of inhabitants
-1,enemy,100,100,20
-1,neutral,200,200,20
-1,player,300,300,20
+test,enemy,100,100,20
+test,neutral,200,200,2
+test,player,300,300,20
+test,player,400,400,20
+1,enemy,100,500,40
+1,neutral,500,500,20
+1,player,900,500,40
 2,enemy,100,100,20
-2,neutral,200,200,20
+2,neutral,200,200,2
 2,player,300,300,20
 2,player,400,400,20

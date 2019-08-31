@@ -1,6 +1,8 @@
 import pygame
 from const import *
 from vec2d import Vec2d
+import asset_manager
+
 
 
 class Creature():
@@ -19,10 +21,10 @@ class Creature():
 
         self.speed = 1
 
-        self.bg_color = RED
+        self.image =  asset_manager.mngr.give_image('enemy_creature')
 
         if self.team == 'player':
-            self.bg_color = GREEN
+            self.image = asset_manager.mngr.give_image('player_creature')
 
     def move(self):
         move = self.target_vec2d - self.pos
@@ -39,4 +41,5 @@ class Creature():
             self.kill()
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.bg_color, self.rect, 0)
+        screen.blit(self.image, (self.pos[0], self.pos[1]))
+        # pygame.draw.rect(screen, self.bg_color, self.rect, 0)

@@ -3,7 +3,7 @@ from const import *
 from text import write
 import creature
 import timer
-
+import asset_manager
 
 class Base:
 
@@ -11,20 +11,28 @@ class Base:
         self.stage = stage
         self.x = x
         self.y = y
-        self.w = 40
-        self.h = 40
+        self.w = 100
+        self.h = 100
         self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
 
         self.team = team
 
         self.bg_color = RED
+        self.image = asset_manager.mngr.give_image('enemy_base')
 
         if self.team == 'player':
             self.bg_color = GREEN
+            self.image = asset_manager.mngr.give_image('player_base')
+
         elif self.team == 'neutral':
             self.bg_color = DARK_GREY
-        else:
-            self.bg_color = RED
+            self.image = asset_manager.mngr.give_image('neutral_base')
+
+        # else:
+        #     self.bg_color = RED
+
+
+
 
         self.selected = False
 
@@ -114,6 +122,7 @@ class Base:
     def check_capture(self, enemy_team):
         if self.inhabitants < 0:
             self.team = enemy_team
+            self.image = asset_manager.mngr.give_image(enemy_team + '_base')
             self.inhabitants += 2
             if self.team == 'player':
                 self.bg_color = GREEN
@@ -136,17 +145,18 @@ class Base:
         self.regulate_growth()
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.bg_color, self.rect, 0)
+        screen.blit(self.image, (self.rect))
+        # pygame.draw.rect(screen, self.bg_color, self.rect, 0)
         if self.selected:
             pygame.draw.rect(screen, WHITE, self.rect, 3)
         write(screen, self.inhabitants, (self.rect.center), centered=True)
 
-        write(screen, "team: {}".format(self.team),
-              (self.rect.right + 5, self.rect.top), font_cat = 'std_small' )
-        write(screen, "to transfer: {}".format(self.to_transfer_amount),
-              (self.rect.right + 5, self.rect.top + 10 ), font_cat='std_small')
-        write(screen, "in transfer: {}".format(self.in_transfer_amount),
-              (self.rect.right + 5, self.rect.top + 20), font_cat='std_small')
+        # write(screen, "team: {}".format(self.team),
+        #       (self.rect.right + 5, self.rect.top), font_cat = 'std_small' )
+        # write(screen, "to transfer: {}".format(self.to_transfer_amount),
+        #       (self.rect.right + 5, self.rect.top + 10 ), font_cat='std_small')
+        # write(screen, "in transfer: {}".format(self.in_transfer_amount),
+        #       (self.rect.right + 5, self.rect.top + 20), font_cat='std_small')
 
 
         for creature in self.released_creatures:

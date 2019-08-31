@@ -22,9 +22,11 @@ class Powerbar():
         self.rect.center = (SW / 2, 950)
 
     def get_teamnames(self):
+        self.team_names = []
         for base in self.total_bases:
             if base.team not in self.team_names:
                 self.team_names.append(base.team)
+        # print('names', self.team_names)
 
     def get_team_colors(self):
         for team in self.team_names:
@@ -65,6 +67,7 @@ class Powerbar():
         # print('bars', self.team_rects)
 
     def update(self):
+        self.get_teamnames()
         self.get_team_amounts()
         self.get_total_amount()
         self.get_team_ratios()

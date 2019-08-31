@@ -34,7 +34,7 @@ class Selection_box():
         self.selectables = selectables
 
     def give_selection(self):
-        # print(self.selection)
+        print(self.selection)
         return self.selection
 
     def process_input(self, events):
