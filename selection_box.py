@@ -60,8 +60,9 @@ class Selection_box():
         if self.selection_made:
             for item in self.selectables:
                 if item != self:
-                    if self.sel_rect.colliderect(item.rect) and item.box_selectable:
-                        self.selection.append(item)
+                    if item.box_selectable:
+                        if self.sel_rect.colliderect(item.rect):
+                            self.selection.append(item)
 
             # self.give_selection()
             self.activated = False

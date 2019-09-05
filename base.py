@@ -14,6 +14,8 @@ class Base:
         self.w = 100
         self.h = 100
         self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
+        self.hitbox = pygame.Rect(self.x, self.y, self.w - 50, self.h - 30)
+        self.hitbox.midbottom = self.rect.midbottom
 
         self.team = team
 
@@ -82,8 +84,7 @@ class Base:
         self.in_transfer_amount -= 1
 
     def transfer_creatures(self, base):
-        # todo make the neutrals not send creatures if you select them
-        if self.inhabitants > 1:
+        if self.inhabitants > 1 :
             self.currently_releasing = True
             self.target_base = base
             self.to_transfer_amount += self.transfer_amount
@@ -132,10 +133,12 @@ class Base:
     # PUD ---------------------------------------------------------------------------
 
     def process_input(self, events):
+        if self.rect.collidepoint(pygame.mouse.get_pos()):
+            if events.mouse.l_clicked:
+                    self.stage.select_building(self)
 
-        if events.mouse.l_clicked:
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
-                self.stage.select_building(self)
+            elif events.mouse.r_clicked:
+                self.stage.upgrade_wheel.switch_active(self)
 
     def update(self):
         for item in self.released_creatures:

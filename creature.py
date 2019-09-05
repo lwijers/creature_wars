@@ -2,7 +2,7 @@ import pygame
 from const import *
 from vec2d import Vec2d
 import asset_manager
-
+import random
 
 
 class Creature():
@@ -10,8 +10,8 @@ class Creature():
         self.home = home
         self.target = target
         self.team = home.team
-        self.x = self.home.rect[0]
-        self.y = self.home.rect[1]
+        self.x = random.randrange(self.home.hitbox.left, self.home.hitbox.right)
+        self.y = self.home.hitbox.bottom-10
         self.w = 3
         self.h = 3
         self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
@@ -37,7 +37,7 @@ class Creature():
 
     def update(self):
         self.move()
-        if self.rect.colliderect(self.target.rect):
+        if self.rect.colliderect(self.target.hitbox):
             self.kill()
 
     def draw(self, screen):
